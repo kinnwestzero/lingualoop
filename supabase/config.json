@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "ai-coach": {
+      "verify_jwt": false
+    }
+  }
+}
