@@ -10,7 +10,7 @@ Deno.serve(async(req)=>{
  const auth={apikey:service,Authorization:"Bearer "+service,"Content-Type":"application/json"};
  const state=await fetch(url+"/rest/v1/lingualoop_state?id=eq."+id+"&select=id",{headers:auth});
  const rows=await state.json(); if(!rows.length)return Response.json({error:"unauthorized"},{status:401,headers:cors});
- const today=new Date().toISOString().slice(0,10), q=await fetch(url+"/rest/v1/lingualoop_ai_usage?id=eq."+id+"&day=eq."+today+"&select=calls",{headers:auth}), qr=await q.json(), used=qr[0]?.calls||0, limit=30;
+ const today=new Date().toISOString().slice(0,10), q=await fetch(url+"/rest/v1/lingualoop_ai_usage?id=eq."+id+"&day=eq."+today+"&select=calls",{headers:auth}), qr=await q.json(), used=qr[0]?.calls||0, limit=10;
  if(used>=limit)return Response.json({error:"daily limit reached"},{status:429,headers:cors});
  const body=await req.json(), mode=body.mode==="correct"?"correct":"chat", language=body.lang||"en", text=String(body.text||"").slice(0,2000);
  const system=mode==="correct"?"You are LinguaLoop, a concise language coach. Correct the learner's wording, explain the most important error briefly in Korean, give one natural alternative, and preserve the intended meaning. For Academic English, prioritize academic register.":"You are LinguaLoop, a conversation tutor. Reply mainly in the target language, keep the exchange natural and concise, then add one short Korean coaching note. Do not overwhelm the learner.";
