@@ -1,32 +1,40 @@
 # LinguaLoop v2
 
-A conversation-first language learning prototype.
+Conversation-first language learning app prototype.
 
-## Modes
-- 🇨🇳 Chinese conversation
-- 🇯🇵 Japanese conversation
-- 🇩🇪 German conversation
-- 🇮🇹 Italian conversation
-- 🎓 Academic English — seminars, presentations, research synthesis
+## Learning modes
+- 🇨🇳 Chinese conversation (HSK-oriented)
+- 🇯🇵 Japanese conversation (JLPT-oriented)
+- 🇩🇪 German conversation (CEFR)
+- 🇮🇹 Italian conversation (CEFR)
+- 🎓 Academic English (CEFR C1-style academic tasks)
 
-## v2 prototype
-- Daily scenario-based speaking loops
-- Browser text-to-speech for model dialogue
-- Browser speech recognition for learner turns (where supported)
-- Local progress / XP persistence
+## Current v2
+- Scenario-based speaking loops
+- Browser TTS and speech recognition
+- Immediate transcript similarity feedback
+- Automatic review queue for difficult expressions
+- Lightweight SRS-style review loop
+- Local progress, XP and review persistence
 - Responsive mobile-first UI
-- No backend or API key required
+- No backend/API key required
 
-## Run
-Open `index.html` in a modern browser, or serve the directory:
-
+## Run locally
 ```bash
 python3 -m http.server 8080
 ```
+Open http://localhost:8080.
 
-Then open `http://localhost:8080`.
+## Architecture direction
+The current build is a privacy-friendly static MVP. Real AI conversation and pronunciation/grammar assessment require a server-side model integration; API secrets must never be embedded in browser JavaScript.
 
-> Speech recognition support varies by browser. Chrome-based browsers generally provide the best support.
+Recommended production stack:
+1. Web/mobile client
+2. Auth + learner profile service
+3. Server-side AI conversation/feedback endpoint
+4. Speech transcription/pronunciation service
+5. Synced SRS review store
+6. CEFR/HSK/JLPT curriculum metadata
 
-## Next
-The prototype is intentionally dependency-free. A production iteration can add authentication, spaced repetition, AI pronunciation/grammar feedback, generated role-play, and synced learner profiles.
+## Next production milestone
+Add authenticated profiles and a server-side AI tutor endpoint, then replace heuristic similarity feedback with rubric-based grammar, vocabulary, task-completion, and pronunciation feedback.
