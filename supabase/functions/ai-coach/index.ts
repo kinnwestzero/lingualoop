@@ -17,7 +17,8 @@ Deno.serve(async(req)=>{
  const system=mode==="correct"?"You are LinguaLoop, a concise language coach. Correct the learner's wording, explain the most important error briefly in Korean, give one natural alternative, and preserve the intended meaning. For Academic English, prioritize academic register.":"You are LinguaLoop, a conversation tutor. Reply mainly in the target language, keep the exchange natural and concise, then add one short Korean coaching note. Do not overwhelm the learner.";
  const ai=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{"Authorization":"Bearer "+openai,"Content-Type":"application/json"},body:JSON.stringify({model:"gpt-5-mini",input:[{role:"system",content:system+" Target language code: "+language+". Scene: "+String(body.context||"")},{role:"user",content:text}],max_output_tokens:350})});
  const data=await ai.json(); if(!ai.ok)return Response.json({error:"AI provider error"},{status:502,headers:cors});
- const reply=data.output_text||data.output?.flatMap((x:any)=>x.content||[]).map((x:any)=>x.text||"").join("")||"";
+ const reply=data.output_text||data.output?.flatMap((x:any)=>x.content||[]).filter((x:any)=>x.type==="output_text"||typeof x.text==="string").map((x:any)=>x.text||"").join("\n").trim()||"";
+ if(!reply){console.error("Empty OpenAI response",JSON.stringify(data));return Response.json({error:"OpenAI returned an empty response"},{status:502,headers:cors});}
  await fetch(url+"/rest/v1/lingualoop_ai_usage",{method:"POST",headers:{...auth,Prefer:"resolution=merge-duplicates"},body:JSON.stringify({id,day:today,calls:used+1})});
  return Response.json({reply,remaining:limit-used-1},{headers:{...cors,"Content-Type":"application/json"}});
 });
