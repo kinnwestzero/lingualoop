@@ -1,1 +1,32 @@
-# LinguaLoop v2\n\nSingle-user, conversation-first language learning app. No login is required.\n\n## Modes\n- Chinese conversation (HSK-oriented)\n- Japanese conversation (JLPT-oriented)\n- German / Italian conversation (CEFR)\n- Academic English\n\n## Personal weakness loop\n1. Practice speaking.\n2. Low-scoring expressions are automatically saved.\n3. Repeated mistakes increase lapse count and review priority.\n4. Grade reviews as Again / Hard / Remembered.\n5. The next review interval adapts to that grade.\n6. When the due queue is empty, the historically hardest expression can still be reviewed.\n\nStored locally: lesson progress, XP, difficult expressions, lapse counts, last score, and next review time.\n\n## Important limitation\nBrowser localStorage is device/browser-specific. Clearing site data or switching devices loses the history. A later version can add export/import backup or private sync without adding a multi-user login system.\n\n## Run\n```bash\npython3 -m http.server 8080\n```\nOpen http://localhost:8080.\n\nReal AI free conversation and pronunciation/grammar assessment can later use a server-side endpoint without turning the app into a multi-user product.\n
+# LinguaLoop v2
+
+Single-user language learning app with cross-device study history.
+
+## Modes
+Chinese, Japanese, German and Italian are conversation-first. English is Academic English.
+
+## Weakness-first review
+Low-scoring expressions are saved automatically. Repeated mistakes increase priority. Reviews are graded Again / Hard / Remembered and rescheduled.
+
+## iPhone ↔ Mac sync (Supabase)
+No user login UI is required. LinguaLoop keeps an offline local copy and can sync the same private learner state between devices.
+
+1. Create a free Supabase project.
+2. Open **SQL Editor** and run `supabase/schema.sql`.
+3. In Supabase project settings/API, copy the **Project URL** and the client-safe **publishable/anon key**. Never use a service-role/secret key in the browser.
+4. Open LinguaLoop → **☁️ 동기화 설정**.
+5. Enter the URL, client key, and a long random personal **Sync ID**.
+6. Enter the same three values once on the iPhone and Mac.
+
+Synced state: language/lesson position, completed count, XP source data, weak expressions, lapse counts, scores, SRS intervals and due dates.
+
+### Security note
+This is deliberately a minimal personal prototype, not multi-user authentication. The included RLS policy permits anonymous table access; privacy relies on an unguessable Sync ID. For sensitive data or a public/multi-user release, replace this with proper authentication/RLS. Never store Supabase service-role keys in this app.
+
+## Offline behavior
+Every change is written locally first. If cloud sync is unavailable, studying continues locally and a later save attempts cloud sync. The current MVP uses last-write-wins state sync, so avoid actively studying on both devices at the exact same time.
+
+## Run
+```bash
+python3 -m http.server 8080
+```
