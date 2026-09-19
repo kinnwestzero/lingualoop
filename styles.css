@@ -54,3 +54,6 @@
 
 /* v20 focused AI modes + on-demand meanings */
 .promptTools{display:flex;gap:7px}.promptMeaning{margin:9px 0 0!important;padding:10px 12px;border-radius:12px;background:#ffffff08;color:#c5ccd6!important;font-size:13px!important}.aiModeSwitch{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0 10px;padding:4px;background:#090b12aa;border:1px solid #ffffff10;border-radius:16px}.aiModeTab{border:0;background:transparent;color:#8993a3;border-radius:12px;padding:11px;font-weight:900}.aiModeTab.active{background:#9c5cff;color:white}.aiQuickTools{display:flex;gap:7px;margin-bottom:8px}.aiQuickTools button{flex:1;border:1px solid #ffffff12;background:#ffffff08;color:#d7dce5;border-radius:13px;padding:10px;font-weight:800}.aiMeaningToggle{margin-top:8px}.aiKorean.hidden{display:none!important}@media(max-width:700px){.promptTools button{padding:9px 11px}.aiQuickTools button{font-size:11px}}
+
+/* v21 explicit roleplay language */
+.roleplaySetup{margin:8px 0}.roleplaySetup label{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#9ba5b4;font-size:11px;font-weight:900}.roleplaySetup select{flex:0 0 auto;min-width:155px;background:#111622;color:#f5f7fb;border:1px solid #9c5cff55;border-radius:13px;padding:10px 12px;font:inherit;font-weight:850}.roleplaySetup.hidden{display:none!important}
