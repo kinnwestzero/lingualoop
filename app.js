@@ -49,7 +49,6 @@ $("academicStart").onclick=()=>{lang="en";save();$("aiInput").value=academicToda
 $("heardPracticeBtn").onclick=startCapture;$("aiListenBtn").onclick=startCapture;$("captureRetry").onclick=startCapture;
 $("captureSave").onclick=()=>{const t=$("capturedText").value.trim();if(!t)return;rememberPhrase(t,"heard");$("aiInput").value=t;$("captureReview").classList.add("hidden");renderPhraseLibrary()};
 $("captureCorrect").onclick=()=>{const t=$("capturedText").value.trim();if(!t)return;callAI("correct",t,(reply)=>{$("capturedText").value=reply;$("aiInput").value=reply})};$("aiCorrectBtn").onclick=()=>callAI("correct");$("aiChatBtn").onclick=()=>callAI("chat");$("aiSendBtn").onclick=()=>callAI("chat");document.querySelectorAll(".aiChips button").forEach(b=>b.onclick=()=>{$("aiInput").value=b.dataset.prompt;$("aiInput").focus()});
-b.classList.add("active");renderReviewHub(b.dataset.reviewTab)});
 document.querySelectorAll(".phraseTabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".phraseTabs button").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderPhraseHome(b.dataset.phraseTab)});
 document.querySelectorAll(".bottomNav button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".bottomNav button").forEach(x=>x.classList.remove("navActive"));b.classList.add("navActive");document.querySelector("."+b.dataset.go)?.scrollIntoView({behavior:"smooth",block:"start"})});
 render();
