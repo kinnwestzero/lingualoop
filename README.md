@@ -21,7 +21,11 @@ No user login UI is required. LinguaLoop keeps an offline local copy and can syn
 Synced state: language/lesson position, completed count, XP source data, weak expressions, lapse counts, scores, SRS intervals and due dates.
 
 ### Security note
-This is deliberately a minimal personal prototype, not multi-user authentication. The included RLS policy permits anonymous table access; privacy relies on an unguessable Sync ID. For sensitive data or a public/multi-user release, replace this with proper authentication/RLS. Never store Supabase service-role keys in this app.
+The sync is now capability-based rather than globally readable. The browser sends the private Sync ID in a request header; the database stores only its SHA-256 hash. RLS recomputes that hash for every request and only exposes the matching row. A public GitHub repository therefore does not reveal the learner record or Sync ID.
+
+Use a long random Sync ID and keep it private. The Supabase publishable key is client-safe; never put a secret/service-role key in this app.
+
+After updating from the earlier prototype, re-run the complete `supabase/schema.sql` in Supabase SQL Editor to replace the old permissive policies.
 
 ## Offline behavior
 Every change is written locally first. If cloud sync is unavailable, studying continues locally and a later save attempts cloud sync. The current MVP uses last-write-wins state sync, so avoid actively studying on both devices at the exact same time.
