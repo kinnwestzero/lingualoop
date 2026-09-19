@@ -46,3 +46,5 @@
   .bottomNav button span{font-size:9px}
 }
 .lessonTop #progressText{font-size:11px;color:#9aa4b5;font-weight:800;white-space:nowrap}
+/* v18 guided starter + AI conversation */
+.starterGuide{margin:10px 0;padding:15px;border:1px solid #b8ff3d35;border-radius:18px;background:#b8ff3d0b}.starterGuide>small{color:#b8ff3d;font-weight:900}.starterTarget{font-size:20px;font-weight:850;line-height:1.4;margin:10px 0 5px}.starterMeaning{color:#aeb7c5;font-size:13px}.starterActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.starterActions button{flex:1;min-width:120px}.aiThread{max-width:100%}.aiKorean{margin-top:9px;padding-top:9px;border-top:1px solid #ffffff12;color:#aeb7c5;font-size:12px;white-space:normal}.aiReplyActions{display:flex;gap:6px;flex-wrap:wrap}.meaningToggle{display:block;border:0;background:transparent;color:#b8ff3d;padding:7px 0 0;font-weight:800}.phraseMeaning{margin:7px 0 0!important;color:#c3cad4!important;font-size:13px!important}.phraseMain{min-width:0;flex:1}@media(max-width:700px){.starterTarget{font-size:18px}.starterActions button{min-width:0;font-size:11px;padding:10px 7px}.aiMsg{max-width:92%}}
