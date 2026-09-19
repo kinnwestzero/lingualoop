@@ -64,3 +64,14 @@ with check (
     'hex'
   )
 );
+
+-- AI usage quota: protected by the same private Sync ID capability.
+create table if not exists public.lingualoop_ai_usage (
+  id text not null,
+  day date not null default current_date,
+  calls integer not null default 0,
+  primary key (id, day)
+);
+alter table public.lingualoop_ai_usage enable row level security;
+-- No anon policies: browser clients cannot read or mutate quota rows.
+-- The ai-coach Edge Function uses the server-side service role.
