@@ -9,7 +9,8 @@ Deno.serve(async(req)=>{
  if(!openai)return Response.json({error:"AI is not configured"},{status:503,headers:cors});
  const auth={apikey:service,Authorization:"Bearer "+service,"Content-Type":"application/json"};
  const state=await fetch(url+"/rest/v1/lingualoop_state?id=eq."+id+"&select=id",{headers:auth});
- const rows=await state.json(); if(!rows.length)return Response.json({error:"unauthorized"},{status:401,headers:cors});
+ if(!state.ok)return Response.json({error:"state lookup failed"},{status:502,headers:cors});
+ const rows=await state.json(); if(!Array.isArray(rows)||!rows.length)return Response.json({error:"sync profile not found"},{status:401,headers:cors});
  const today=new Date().toISOString().slice(0,10), q=await fetch(url+"/rest/v1/lingualoop_ai_usage?id=eq."+id+"&day=eq."+today+"&select=calls",{headers:auth}), qr=await q.json(), used=qr[0]?.calls||0, limit=10;
  if(used>=limit)return Response.json({error:"daily limit reached"},{status:429,headers:cors});
  const body=await req.json(), mode=body.mode==="correct"?"correct":"chat", language=body.lang||"en", text=String(body.text||"").slice(0,2000);
